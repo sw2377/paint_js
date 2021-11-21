@@ -1,8 +1,12 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const colors = document.getElementsByClassName("jsColor");
+const randomColor = document.getElementById("randomColor");
+const colorPick = document.getElementById("colorPick");
+const colorPicker = colorPick.querySelector("input");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
+const clear = document.getElementById("jsClear");
 const saveBtn = document.getElementById("jsSave");
 
 const INITIAL_COLOR = "2c2c2c";
@@ -15,7 +19,7 @@ ctx.fillStyle = "white";
 ctx.fillRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
 ctx.strokeStyle = INITIAL_COLOR;
 ctx.fillStyle = INITIAL_COLOR;
-ctx.lineWidth = 2.5;
+ctx.lineWidth = 5;
 
 let painting = false;
 let filling = false;
@@ -46,6 +50,25 @@ function handleColorClick(event){
     ctx.fillStyle = color;
 }
 
+function randomColorClick(){
+    const color = `rgb(${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)},${Math.floor(Math.random()*255)})`
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    randomColor.style.backgroundColor = color;
+    randomColor.firstElementChild.style.color = "white";
+}
+
+function colorPickClick(){ 
+    colorPicker.click();
+}
+
+function changeColor(){
+    const color = colorPicker.value;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    colorPick.style.background = color;
+}
+
 function handleRangeChange(event){
     const size = event.target.value;
     ctx.lineWidth = size;
@@ -59,6 +82,10 @@ function handleModeClick(){
         filling = true;
         mode.innerText = "Paint"
     }
+}
+
+function clearCanvas(){
+    ctx.clearRect(0,0,CANVAS_SIZE,CANVAS_SIZE);
 }
 
 function handleCanvasClick(){
@@ -90,12 +117,25 @@ if(canvas){
 
 Array.from(colors).forEach(color => color.addEventListener("click", handleColorClick));
 
+if(randomColor){
+    randomColor.addEventListener("click", randomColorClick);
+}
+
+if(colorPick){
+    colorPick.addEventListener("click", colorPickClick);
+    colorPicker.addEventListener("change", changeColor);
+}
+
 if(range){
     range.addEventListener("input", handleRangeChange);
 }
 
 if(mode){
     mode.addEventListener("click", handleModeClick);
+}
+
+if(clear){
+    clear.addEventListener("click", clearCanvas);
 }
 
 if(saveBtn){

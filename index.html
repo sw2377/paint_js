@@ -8,13 +8,15 @@
     <title>PaintJS</title>
 </head>
 <body>
+    <p class="font">PAINT</p>
     <canvas id="jsCanvas" class="canvas"></canvas>
     <div class="controls">
         <div class="controls_range">
-            <input type="range" id="jsRange" min="0.1" max="5.0" value="2.5" step="0.1">
+            <input type="range" id="jsRange" min="0.1" max="10.0" value="5" step="0.1">
         </div>
         <div class="controls_btns">
             <button id="jsMode">Fill</button>
+            <button id="jsClear">Clear</button>
             <button id="jsSave">Save</button>
         </div>
         <div id="jsColors" class="controls_colors">
@@ -27,6 +29,13 @@
             <div class="controls_color jsColor" style="background-color:#5ac8fa;"></div>
             <div class="controls_color jsColor" style="background-color:#0579ff;"></div>
             <div class="controls_color jsColor" style="background-color:#5856d6;"></div>
+
+            <div id="randomColor" class="controls_color jsColor">
+                <span>R</span>
+            </div>
+            <div id="colorPick" class="controls_color jsColor" style="background:linear-gradient(135deg,#ff3b30,#ff9500,#ffcc00,#5ac8fa,#5856d6);">
+                <input type="color"> 
+            </div>
         </div>
     </div>
 
